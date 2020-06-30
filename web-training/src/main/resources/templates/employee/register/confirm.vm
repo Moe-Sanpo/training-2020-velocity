@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>登録情報</title>
+
+	</head>
+<body>
+
+	<h1>登録情報</h1>
+
+	<form id="employee_form" action="/training/employee/register/execute"  method="POST">
+		<table>
+			<tbody>
+				<tr>
+					<th>氏名</th>
+					<td> ${employee.name.fullName()}</td>
+				</tr>
+				<tr>
+					<th>性別</th>
+					<td> ${employee.gender.label}</td>
+				</tr>
+				<tr>
+					<th>生年月日</th>
+					<td>${employee.dateOfBirth.value}</td>
+				</tr>
+				<tr>
+					<th>所属部署</th>
+					<td> ${departmentList.departmentNameById(${employee.department.id.value}).value}</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			<input type="button" onclick="location.href='/training/employee/register/back'" value="戻る" />
+			<input type="submit" value="登録">
+		</p>
+	</form>
+
+</body>
+</html>

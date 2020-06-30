@@ -1,0 +1,42 @@
+#macro( input $path $attribute $id $value )
+	<input type="text" value="macro" />
+#end
+
+#macro (error)
+#foreach($error in ${status.errorMessages}) <p style="color:red" class="err">$!{error}</p> #end
+#end
+
+#macro(department)
+	#springBind('employee.department.id.value')
+		<select  name='${status.expression}' value=$employee.department.id.value>
+			#foreach(${department} in ${departmentList.values})
+			<option value=${department.id.value}
+			#if(${department.id.value} == ${employee.department.id.value})
+				selected
+			#end>
+
+			${department.name.value}</option>
+	#end
+</select>
+#end
+
+#macro(name)
+#set($name = $employee.name.fullName())
+#end
+
+#macro( formInput $path $value )
+#springBind($path)
+#set( $strId = '' )
+#set( $strId = $id )
+#if( $strId == '' )
+	#set( $strId = ${status.expression} )
+#end
+#set( $strValue = '' )
+#set( $strValue = $value )
+#if( $strValue == '' )
+	#set( $strValue = ${status.value} )
+#else
+	#set( $strValue = $esc.html($strValue) )
+#end
+<input type="text" name="${status.expression}" id="${strId}" value="${strValue}" $attribute />
+#end

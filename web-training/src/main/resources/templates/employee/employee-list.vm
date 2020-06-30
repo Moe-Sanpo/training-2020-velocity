@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+
+<title>社員一覧</title>
+</head>
+<body>
+	<h1>社員一覧</h1>
+	#parse("/common/menu.vm")
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>氏名</th>
+				<th>性別</th>
+				<th>所属部署</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			#foreach( $employee in ${employeeList.values} )
+				<tr>
+					<td>${employee.id.value}</td>
+					<td><a href="/training/employee/${employee.id.value}">${employee.name.fullName()}</a></td>
+					<td>${employee.gender.label}</td>
+					<td>${employee.department.name.value}</td>
+					<td>
+						<a href="/training/employee/delete/${employee.id.value}">削除</a>
+					</td>
+				</tr>
+
+			#end
+			#if(${employeeList.isEmpty()})
+					<td></td>
+					<td>該当する社員はいません。</td>
+			#end
+		</tbody>
+	</table>
+	<p>
+		<a href="/training/employee/register">社員登録</a>
+	</p>
+</body>
+</html>

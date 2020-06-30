@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>社員編集</title>
+	</head>
+	<body>
+		#set($name = $employee.name.fullName())
+		<h1>$nameさんの現在の情報</h1>
+		<div>
+			<form action= "/training/employee/modify/$employee.id.value"  method="POST">
+				<p>
+					<label>氏名:姓</label>
+					#springFormInput('employee.name.lastName')
+					#error
+				</p>
+				<p>
+					<label>氏名:名</label>
+					#springFormInput('employee.name.firstName')
+					#error
+				</p>
+				<p>
+					<label>性別</label>
+					#springFormRadioButtons('employee.gender' ${employee.gender.options()} ""  )
+					#springBind('employee.dateOfBirth.value')
+						#springShowErrors("<br>" "color:red")
+				</p>
+				<p>
+					<label>生年月日</label>
+					#springBind('employee.dateOfBirth.value')
+					<input type="date" name='${status.expression}' value="$status.value">
+					 #error
+				</p>
+				<p>
+					<label>所属部署</label>
+					#springBind('employee.department.id.value')
+					<select  name='${status.expression}' value=$employee.department.id.value>
+						<option value="">---</option>
+						#foreach(${department} in ${departmentList.values})
+						<option value=${department.id.value}
+						#if(${department.id.value} == ${employee.department.id.value})
+							selected
+						#end>
+						${department.name.value}</option>
+						#end
+					</select>
+					#error
+				</p>
+				<p>
+					<input type="submit" value="確認">
+				</p>
+			</form>
+		</div>
+
+	</body>
+</html>

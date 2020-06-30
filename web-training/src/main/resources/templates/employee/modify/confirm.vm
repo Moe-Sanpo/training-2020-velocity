@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>社員編集</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" inline="javascript">
+	/*<![CDATA[*/
+	   $(document).ready(function() {
+			$('#back_button').bind('click', function(){
+				var backUrl = "/training/employee/modify/${employee.id.value}/back";
+				$('#employee_form').attr('action', backUrl);
+				$('#employee_form').submit();
+			});
+		});
+	/*]]>*/
+	</script>
+	</head>
+<body>
+
+	<h1>社員編集</h1>
+
+	<form id="employee_form" action="/training/employee/modify/${employee.id.value}/execute"  method="POST">
+		<table>
+			<tbody>
+				<tr>
+					<th>氏名</th>
+					<td> ${employee.name.fullName()}</td>
+
+				</tr>
+				<tr>
+					<th>性別</th>
+					<td>${employee.gender.label}</td>
+				</tr>
+				<tr>
+					<th>生年月日</th>
+					<td>${employee.dateOfBirth.value}</td>
+				</tr>
+				<tr>
+					<th>所属部署</th>
+					<td>${departmentList.departmentNameById(${employee.department.id.value}).value}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<input type="hidden" name='id.value'  value="${employee.id.value}"/>
+			<input type="hidden" name='name.lastName' value="${employee.name.lastName}" />
+			<input type="hidden" name='name.firstName' value="${employee.name.firstName}"/>
+			<input type="hidden" name='gender'  value="${employee.gender}"/>
+			<input type="hidden" name='dateOfBirth.value' value="${employee.dateOfBirth.value}"/>
+			<input type="hidden" name='department.id.value' value="${employee.department.id.value}"/>
+		</div>
+		<p>
+			<input type="submit" value="変更">
+			<input id="back_button" type="button" value="戻る" />
+
+		</p>
+	</form>
+
+</body>
+</html>

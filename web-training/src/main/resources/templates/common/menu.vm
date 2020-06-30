@@ -1,0 +1,18 @@
+<div>
+	<form action="/training/employee" method="POST">
+		<p>
+			<label>部署</label>
+			<select name="selectedDepartmentId.value">
+				<option value="">---</option>
+				#foreach( $department in ${departmentList.values} )
+					<option value="${department.id.value}" #if(${department.id.value} == ${criteria.selectedDepartmentId.value}) selected #end>${department.name.value}</option>
+				#end
+			</select>
+		</p>
+		<p>
+			<label>表示順：社員ＩＤ</label>
+			#springFormRadioButtons('criteria.employeeIdPriority' ${criteria.employeeIdPriority.options()} '' '')
+		</p>
+		<p><input type="submit" value="検索"></p>
+	</form>
+</div>

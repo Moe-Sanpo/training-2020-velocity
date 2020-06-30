@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>登録フォーム</title>
+	</head>
+	<body>
+		<h1>登録フォーム</h1>
+		<form action="/training/employee/register" method="POST">
+		<div>
+			<p><label>氏：
+			#springFormInput('employee.name.lastName' ${employee.name.lastName})</p></label>
+			<p>#springShowErrors('<br>' 'color:red')</p>
+
+			<p><label>名：
+			#springFormInput('employee.name.firstName' ${employee.name.firstName})</p></label>
+			<p>#springShowErrors('<br>' 'color:red')</p>
+
+			<p><label>性別：
+			#springFormRadioButtons('employee.gender' ${employee.gender.options()} '')</p></label>
+			<p>#springShowErrors('<br>' 'color:red')</p>
+
+
+			<p>
+			#springBind('employee.dateOfBirth.value')
+			<label>生年月日：
+			<input type="date" name='${status.expression}' value="${status.value}"</p><label>
+
+			<p><label>所属部署
+			#springBind('employee.department.id.value')
+				<select name=${status.expression} value=${status.value}>
+				<option value="">---</option>
+				#foreach(${List} in ${departmentList.values})
+				<option value = ${List.id.value}
+						#if(${List.id.value} == ${employee.department.id.value})
+						selected
+						#end>
+						${List.name.value}</option>
+				#end
+			</p></label>
+			<p>#springShowErrors('<br>' 'color:red')</p>
+
+			<p><input type="submit" value="確認"></p>
+		</div>
+		</form>
+	</body>
+</html>
